@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const siteSchema = new mongoose.Schema({
+    restaurant_id: {
+        type: Number,
+        required: true,
+    },
     name: {
         type: String,
         required: true,

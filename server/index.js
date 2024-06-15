@@ -17,11 +17,12 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
     typeDefs: mergedTypeDef,
     resolvers: mergedResolver,
-    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    plugins: [ApolloServerPluginDrainHttpServer({ httpServer })]
 });
 
 await server.start();
 
+// TODO - context: async ({ req, res }) => buildContext({ req, res }),
 app.use(
     '/graphql',
     cors({
@@ -30,7 +31,7 @@ app.use(
     }),
     express.json(),
     expressMiddleware(server, {
-        context: async ({ req, res }) => buildContext({ req, res }),
+        context: async ({ req, res }) => ({ req }),
     }),
 );
 

@@ -1,6 +1,7 @@
 const siteTypeDef = `#graphql
     type Site {
         _id: ID!
+        restaurant_id: Int!
         name: String!
         email: String!
         logo: String!
@@ -10,7 +11,14 @@ const siteTypeDef = `#graphql
         site: Site
     }
     type Mutation {
-        storeSite: Site
+        updateSite(input: TypeInput!): Site!
+    }
+    input TypeInput {
+        restaurant_id: Int!
+        name: String!
+        email: String!
+        logo: String!
+        banner: [String!]
     }
 `
 

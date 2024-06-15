@@ -13,16 +13,14 @@ const siteResolver = {
         }
     },
     Mutation: {
-        storeSite: async(_, {input}) => {
+        updateSite: async(_, {input}) => {
             try {
-                const site = new Site({
-                    ...input
+                const data = await Site.findOneAndUpdate({ restaurant_id: input.restaurant_id }, input, {
+                    new: true
                 });
-
-                await site.save();
-                return site;
+                return data;
             } catch (err) {
-                console.log('Error in fetching Site', err);
+                console.log('Error in storing Site', err);
                 throw new Error(err.message || 'Internal Server error');
             }
         }
