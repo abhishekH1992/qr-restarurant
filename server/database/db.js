@@ -8,6 +8,10 @@ import menuSeeder from './seeder/menu.seeder.js';
 import menuAddonsSeeder from './seeder/menuAddOnsSeeder.js';
 import menuVariantSeeder from './seeder/menuVariant.seeder.js';
 
+import Cart from "../models/cart.model.js";
+import CartItem from "../models/cartItem.model.js";
+import CartItemAddOn from "../models/cartItemAddOn.model.js";
+
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -22,6 +26,11 @@ export const connectDB = async () => {
         await menuSeeder();
         await menuAddonsSeeder();
         await menuVariantSeeder();
+
+        // await Cart.deleteMany();
+        // await CartItem.deleteMany();
+        // await CartItemAddOn.deleteMany();
+
         console.log('Seeders generated');
     } catch (err) {
         console.log(process.env.MONGO_URI, err);

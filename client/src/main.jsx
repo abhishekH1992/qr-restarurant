@@ -1,13 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
+import './custom.scss'
 import {NextUIProvider} from '@nextui-org/react'
+import { BrowserRouter } from 'react-router-dom'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { CartProvider } from './context/CartContext.js'
+
+const client = new ApolloClient({
+    // TODO - Uncomment
+    // uri: import.meta.env.VITE_NODE_ENV === "development" ? "http://localhost:4000/graphql" : "/graphql",
+    uri: "http://localhost:4000/graphql",
+    cache: new InMemoryCache(),
+    credentials: 'include'
+  });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <NextUIProvider>
-            <App />
-        </NextUIProvider>
+        <BrowserRouter>
+            <ApolloProvider client={client}>
+                <CartProvider>
+                    <NextUIProvider>
+                        <App />
+                    </NextUIProvider>
+                </CartProvider>
+            </ApolloProvider>
+        </BrowserRouter>
     </React.StrictMode>,
 )

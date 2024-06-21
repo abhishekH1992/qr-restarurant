@@ -9,12 +9,13 @@ const categorySeeder = async() => {
 
         const count = await Category.collection.countDocuments();
         if(!count) {
-            categories.map((category) => {
+            categories.map((category, key) => {
                 arr.push({
                     name: category,
                     slug: category.toLowerCase().split(" ").join("-"),
                     isEnable: true,
-                    categoryType: categoryType
+                    categoryType: categoryType,
+                    image: './../public/category/'+key+'.png',
                 });
             });
             await Category.insertMany(arr);

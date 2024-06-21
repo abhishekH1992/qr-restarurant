@@ -5,11 +5,13 @@ const categoryTypeDef = `#graphql
         slug: String!
         isEnable: Boolean!
         categoryType: ID!
+        image: String!
         subCategory: [SubCategory!]
     }
     type Query {
-        category: [Category!]
+        category(isEnable: Boolean): [Category!]
         categoryById(categoryId: ID!): Category!
+        categoryBySlug(slug: String!): Category!
     }
     type Mutation {
         storeCategory(input: CategoryInput!): Category!
@@ -20,14 +22,16 @@ const categoryTypeDef = `#graphql
         name: String!
         slug: String!
         isEnable: Boolean!
+        image: String!
         categoryType: ID!
     }
     input UpdateCategoryInput {
         _id: ID!
-        name: String!
-        slug: String!
-        isEnable: Boolean!
-        categoryType: ID!
+        name: String
+        slug: String
+        isEnable: Boolean
+        image: String
+        categoryType: ID
     }
 `;
 

@@ -6,7 +6,11 @@ const siteSeeder = async () => {
         name: 'ABC Restaurant',
         email: 'abhishekhonrao103@gmail.com',
         logo: './../public/logo.png',
-        banner: []
+        banner: [
+            './../public/banner/1.png',
+            './../public/banner/2.png',
+            './../public/banner/3.png',
+        ]
     });
     try {
         const isSiteExists = await Site.findOne({ name: data.name });

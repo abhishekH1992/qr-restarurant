@@ -3,10 +3,15 @@ import SubCategory from "../models/subCategory.model.js";
 
 const categoryResolver = {
     Query: {
-        category: async() => {
+        category: async(_, {isEnable}) => {
             try {
-                const data = await Category.find();
-                return data;
+                if(isEnable) {
+                    const data = await Category.find({ isEnable: isEnable });
+                    return data;
+                } else {
+                    const data = await Category.find();
+                    return data;
+                }
             } catch(err) {
                 console.log('Error in fetching categories', err);
                 throw new Error(err.message || 'Internal Server error');
@@ -20,7 +25,16 @@ const categoryResolver = {
                 console.log('Error in fetching category by id', err);
                 throw new Error(err.message || 'Internal Server error');
             }
-        }
+        },
+        categoryBySlug: async(_, {slug}) => {
+            try {
+                const data = await Category.find({ slug: slug });
+                return data;
+            } catch(err) {
+                console.log('Error in fetching category by slug', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
     },
     Mutation: {
         storeCategory: async(_, {input}) => {

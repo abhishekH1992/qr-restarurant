@@ -1,15 +1,16 @@
-import React from "react";
-import {Avatar} from "@nextui-org/react";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import CategoryPage from "./pages/CategoryPage";
+import { Toaster } from "react-hot-toast"
 
 export default function App() {
     return (
-        <div className="flex gap-3 items-center">
-            <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
-            <Avatar name="Junior" />
-            <Avatar src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
-            <Avatar name="Jane" />
-            <Avatar src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
-            <Avatar name="Joe" />
-        </div>
+        <>
+            <Routes>
+                <Route path='/' element={<HomePage />} />
+                <Route path='/:categorySlug' element={<CategoryPage />} />
+            </Routes>
+            <Toaster />
+        </>
     )
 }
