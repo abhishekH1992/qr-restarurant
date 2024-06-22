@@ -47,7 +47,7 @@ const CategoryPage = () => {
     return (
         <>
             <SubPagesHeader name={`Menu`} />
-            <div className="px-spacing-sm md:px-spacing-md lg:px-spacing-lg mx-auto">
+            <div className="max-w-940 px-spacing-sm md:px-spacing-md lg:px-spacing-lg mx-auto">
                 <CategorySwiper 
                     loading={loading} 
                     selectedCategoryId={categoryChanged} 

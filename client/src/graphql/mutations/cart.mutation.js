@@ -15,12 +15,83 @@ export const ADD_TO_CART = gql`
             _id
             cartId
             menuId
-            variantId
             quantity
             salePrice
+            menu {
+                _id
+                name
+                fixedPrice
+                image
+            }
+            variant {
+                _id
+                name
+                price
+            }
+            addon {
+                _id
+                name
+                price
+            }
         }
     }
 `;
+
+export const UPDATE_CART = gql`
+    mutation UpdateCart($input: CartItemUpdateInput!) {
+        updateCart(input: $input) {
+            _id
+            cartId
+            menuId
+            quantity
+            salePrice
+            menu {
+                _id
+                name
+                fixedPrice
+                image
+            }
+            variant {
+                _id
+                name
+                price
+            }
+            addon {
+                _id
+                name
+                price
+            }
+        }
+    }
+`;
+
+export const DELETE_CART_ITEM = gql`
+    mutation DeleteCartItem($cartItemId: ID!) {
+        deleteCartItem(cartItemId: $cartItemId) {
+            _id
+            cartId
+            menuId
+            quantity
+            salePrice
+            menu {
+                _id
+                name
+                fixedPrice
+                image
+            }
+            variant {
+                _id
+                name
+                price
+            }
+            addon {
+                _id
+                name
+                price
+            }
+        }
+    }
+`
 
 export const CART_ITEM_ADD_ON = gql`
     mutation CartItemAddOn($input: CartItemAddOnInput!) {

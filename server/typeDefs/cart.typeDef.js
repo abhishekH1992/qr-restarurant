@@ -10,26 +10,33 @@ const cartTypeDef = `#graphql
         quantity: Int!
         variantId: ID
         salePrice: Float!
+        menu: Menu!
+        variant: MenuVariant
+        addon: [MenuAddons]!
     }
     type CartItemAddOn {
         cartItemId: ID!
         addOnId: ID!
     }
     type Query {
-        getCart(CartId: ID!): [CartItem]!
+        getCartItems(cartId: ID!): [CartItem]!
     }
     type Mutation {
         createCart(input: CartInput): Cart!
-        updateCart(input: CartUpdateInput): Cart!
         cartItem(input: CartItemInput!): CartItem!
         cartItemAddOn(input: CartItemAddOnInput!): [CartItemAddOn!]!
+        updateCart(input: CartItemUpdateInput!): CartItem!
+        deleteCartItem(cartItemId: ID!): CartItem!
     }
     input CartInput {
         tableId: ID
     }
-    input CartUpdateInput {
+    input CartItemUpdateInput {
         _id: ID!
-        tableId: ID
+        menuId: ID!
+        quantity: Int!
+        variantId: ID
+        salePrice: Float
     }
     input CartItemInput {
         cartId: ID!

@@ -1,6 +1,9 @@
 import Cart from "../models/cart.model.js";
 import CartItem from "../models/cartItem.model.js";
 import CartItemAddOn from "../models/cartItemAddOn.model.js";
+import Menu from "../models/menu.model.js";
+import MenuAddons from "../models/menuAddOns.model.js";
+import MenuVariant from "../models/menuVariant.model.js";
 
 const cartResolver = {
     Mutation: {
@@ -18,7 +21,7 @@ const cartResolver = {
         },
         updateCart: async(_, {input}) => {
             try {
-                const cart = await Cart.findByIdAndUpdate(input._id, input, {
+                const cart = await CartItem.findByIdAndUpdate(input._id, input, {
                     new: true
                 });
                 return cart;
@@ -55,14 +58,53 @@ const cartResolver = {
                 console.log('Error in adding add on', err);
                 throw new Error(err.message || 'Internal Server error');
             }
+        },
+        deleteCartItem: async(_, {cartItemId}) => {
+            try {
+                console.log(cartItemId);
+                await CartItemAddOn.deleteMany({cartItemId});
+                const data = await CartItem.findByIdAndDelete(cartItemId);
+                return data;
+            } catch(err) {
+                console.log('Error in adding add on', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
         }
     },
     Query: {
-        getCart: async(_, {cartId}) => {
+        getCartItems: async(_, {cartId}) => {
             try {
-                return await Cart.findById(cartId);
+                return await CartItem.find({ cartId: cartId });
             } catch(err) {
                 console.log('Error in fetching cart', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        }
+    },
+    CartItem: {
+        menu: async(parent) => {
+            try {
+                return await Menu.findById(parent.menuId);
+            } catch(err) {
+                console.log('Error in fetching cart menu', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
+        variant: async(parent) => {
+            try {
+                return await MenuVariant.findById(parent.variantId);
+            } catch(err) {
+                console.log('Error in fetching cart menu variant', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
+        addon: async(parent) => {
+            try {
+                const cartAddonsList =  await CartItemAddOn.find({ cartItemId: parent._id });
+                const ids = cartAddonsList.map(addOn => addOn.addOnId);
+                return await MenuAddons.find({ _id: { $in: ids } });
+            } catch(err) {
+                console.log('Error in fetching cart menu addons', err);
                 throw new Error(err.message || 'Internal Server error');
             }
         }

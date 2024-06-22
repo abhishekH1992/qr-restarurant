@@ -5,7 +5,7 @@ import './custom.scss'
 import {NextUIProvider} from '@nextui-org/react'
 import { BrowserRouter } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
-import { CartProvider } from './context/CartContext.js'
+import { CartProvider } from './context/CartContext'
 
 const client = new ApolloClient({
     // TODO - Uncomment

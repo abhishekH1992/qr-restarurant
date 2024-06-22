@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, CheckboxGroup, Checkbox, RadioGroup, Radio } from "@nextui-org/react";
 import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import LoadingButton from "../ui/Button";
-import { addToCart, getItemFinalPrice } from "../../utils/cart.helper";
-import { useMutation } from "@apollo/client";
-import { CREATE_CART, ADD_TO_CART, CART_ITEM_ADD_ON } from "../../graphql/mutations/cart.mutation";
+import { getItemFinalPrice } from "../../utils/cart.helper";
 import toast from "react-hot-toast";
+import { useCart } from "../../context/CartContext";
+import PropTypes from 'prop-types';
 
 const MenuModal = ({ menu, visible, closeModal }) => {
+    const { addToCart } = useCart();
     const [selectedOptions, setSelectedOptions] = useState({
         variant: {
             id: null,
@@ -18,7 +19,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
     });
 
     const [finalPrice, setFinalPrice] = useState(0);
-    const [quantity, setQuantity] = useState(1);
+    const [quantity] = useState(1);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (menu.menuVariant?.length) {
@@ -61,7 +62,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
             let data = selectedOptions.variant.item?.price ? getItemFinalPrice(selectedOptions.variant.item?.price, selectedOptions.addons) : getItemFinalPrice(selectedOptions.menuPrice, selectedOptions.addons);
             if(data) setFinalPrice(data);
         }
-      }, [selectedOptions.variant, selectedOptions.addons]);
+      }, [selectedOptions.variant, selectedOptions.addons, selectedOptions.menuPrice]);
 
     const handleVariantChange = (event) => {
         let item = menu.menuVariant.find((variant) => variant._id === event.target.value);
@@ -72,7 +73,6 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                 item: item
             }
         }));
-        
     };
 
     const handleAddonChange = (values) => {
@@ -84,9 +84,6 @@ const MenuModal = ({ menu, visible, closeModal }) => {
         if(data) setFinalPrice(data);
     };
 
-    const [cart] = useMutation(CREATE_CART);
-    const [addCartItem] = useMutation(ADD_TO_CART);
-    const [itemAddons] = useMutation(CART_ITEM_ADD_ON);
     const handleSubmit = async() => {
         try {
             setLoading(true);
@@ -94,12 +91,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
             if(selectedOptions.addons.length) {
                 ids = selectedOptions.addons.map(item => item._id);
             }
-            const result = await addToCart(
-                {
-                    cart: cart,
-                    cartItem: addCartItem,
-                    itemAddons: itemAddons
-                },
+            await addToCart(
                 {
                     menuId: menu._id,
                     variantId: selectedOptions.variant.id,
@@ -108,23 +100,22 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                 },
                 ids
             );
-            if(result) {
-                setLoading(false);
-                closeModal();
-                toast.success('Added to cart');
-                setSelectedOptions({
-                    variant: {
-                        id: null,
-                        item: [],
-                    },
-                    addons: [],
-                });
-                setFinalPrice(0);
-            }
         } catch(err) {
             setLoading(false);
             toast.error('Something went wrong. Please refresh the page and try again.');
             console.error('Error handling submit:', err);
+        } finally {
+            setLoading(false);
+            closeModal();
+            toast.success('Added to cart');
+            setSelectedOptions({
+                variant: {
+                    id: null,
+                    item: [],
+                },
+                addons: [],
+            });
+            setFinalPrice(0);
         }
     };
 
@@ -136,7 +127,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
             scrollBehavior="inside"
             radius="sm"
             onClose={closeModal}
-            size="xl"
+            size="5xl"
         >
             <ModalContent>
                 <>
@@ -175,7 +166,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                             )}
                             {menu.menuAddOns?.length && (
                                 <>
-                                <div className={`text-modal-section-title-xs sm:modal-section-title-sm px-spacing-sm md:px-spacing-md lg:px-spacing-lg py-4 border-b-1 border-gray-200 uppercase text-gray-500 ${menu.menuVariant?.length > 0 ? `py-8` : ''}`}>
+                                <div className={`text-modal-section-title-xs sm:modal-section-title-sm px-spacing-sm md:px-spacing-md lg:px-spacing-lg py-4 border-b-1 border-gray-200 uppercase text-gray-500 ${menu.menuVariant?.length > 0 ? `pt-8 pb-4` : ''}`}>
                                     Select Addons
                                 </div>
                                 <CheckboxGroup
@@ -208,6 +199,11 @@ const MenuModal = ({ menu, visible, closeModal }) => {
             </ModalContent>
         </Modal>
     );
+};
+MenuModal.propTypes = {
+    menu: PropTypes.any,
+    visible: PropTypes.bool,
+    closeModal: PropTypes.func
 };
 
 export default MenuModal;

@@ -41,10 +41,6 @@ const SubCategorySwiper = ({loading, list, selectedSubCategory, selected}) => {
                             slidesPerView: 6.5,
                             spaceBetween: 20,
                         },
-                        1024: {
-                            slidesPerView: 10.5,
-                            spaceBetween: 20,
-                        },
                     }}
                 >
                     {list.map((l) => (
