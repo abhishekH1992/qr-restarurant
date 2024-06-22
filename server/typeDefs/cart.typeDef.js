@@ -2,6 +2,7 @@ const cartTypeDef = `#graphql
     type Cart {
         _id: ID!
         tableId: ID
+        note: String
     }
     type CartItem {
         _id: ID!
@@ -20,6 +21,7 @@ const cartTypeDef = `#graphql
     }
     type Query {
         getCartItems(cartId: ID!): [CartItem]!
+        getCart(cartId: ID!): Cart
     }
     type Mutation {
         createCart(input: CartInput): Cart!
@@ -27,6 +29,7 @@ const cartTypeDef = `#graphql
         cartItemAddOn(input: CartItemAddOnInput!): [CartItemAddOn!]!
         updateCart(input: CartItemUpdateInput!): CartItem!
         deleteCartItem(cartItemId: ID!): CartItem!
+        updateCartDetails(input: CartDetails!): Cart!
     }
     input CartInput {
         tableId: ID
@@ -48,6 +51,11 @@ const cartTypeDef = `#graphql
     input CartItemAddOnInput {
         cartItemId: ID!
         addOnId: [ID!]!
+    }
+    input CartDetails {
+        _id: ID!
+        tableId: ID
+        note: String
     }
 `;
 

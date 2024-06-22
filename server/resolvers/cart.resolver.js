@@ -68,7 +68,19 @@ const cartResolver = {
                 console.log('Error in adding add on', err);
                 throw new Error(err.message || 'Internal Server error');
             }
-        }
+        },
+        updateCartDetails: async(_, {input}) => {
+            try {
+                const cart = await Cart.findByIdAndUpdate(input._id, input, {
+                    new: true
+                });
+                console.log(cart);
+                return cart;
+            } catch(err) {
+                console.log('Error in updating cart details', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
     },
     Query: {
         getCartItems: async(_, {cartId}) => {
@@ -76,6 +88,14 @@ const cartResolver = {
                 return await CartItem.find({ cartId: cartId });
             } catch(err) {
                 console.log('Error in fetching cart', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
+        getCart: async(_, {cartId}) => {
+            try {
+                return await Cart.findById(cartId);
+            } catch(err) {
+                console.log('Error in fetching note', err);
                 throw new Error(err.message || 'Internal Server error');
             }
         }

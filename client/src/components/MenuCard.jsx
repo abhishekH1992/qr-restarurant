@@ -60,7 +60,7 @@ const MenuCard = ({loading, list}) => {
                         <Card className="flex flex-col s:flex-row gap-2 p-3 rounded-md md:rounded-lg" key={menu._id}>
                             <img
                                 src={menu.image}
-                                className="h-100 sm:h-75 object-cover object-center rounded-md md:rounded-lg"
+                                className="h-200 sm:h-75 object-cover object-center rounded-md md:rounded-lg"
                             />
                             <div className="text-sm w-full">
                                 <div className="text-menu-title pb-2">{menu.name}</div>

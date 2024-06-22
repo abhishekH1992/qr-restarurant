@@ -38,3 +38,13 @@ export const GET_CART_ITEMS = gql`
         }
     }
 `;
+
+export const GET_CART = gql`
+    query GetCart($cartId: ID!){
+        getCart(cartId: $cartId) {
+            _id
+            tableId
+            note
+        }
+    }
+`;

@@ -101,3 +101,13 @@ export const CART_ITEM_ADD_ON = gql`
         }
     }
 `;
+
+export const UPDATE_CART_DETAILS = gql`
+    mutation UpdateCartDetails($input: CartDetails!) {
+        updateCartDetails(input: $input) {
+            _id
+            tableId
+            note
+        }
+    }
+`;

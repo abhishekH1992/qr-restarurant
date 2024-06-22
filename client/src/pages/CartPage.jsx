@@ -2,17 +2,25 @@ import SubPagesHeader from "../components/SubPagesHeader";
 import { useCart } from "../context/CartContext";
 import { Skeleton } from "@nextui-org/react";
 import AddToCartBtn from "../components/ui/AddToCartBtn";
-import { Button } from "@nextui-org/react";
+import { Card, Button, Textarea } from "@nextui-org/react";
 import { useNavigate } from 'react-router-dom';
-import { Card } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { GET_CART } from "../graphql/queries/cart.query";
+import { useQuery } from "@apollo/client";
+import Cookies from 'js-cookie';
 
 const CartPage = () => {
-    const { state, loading } = useCart();
+    const { data } = useQuery(GET_CART, {
+		variables: {cartId: Cookies.get('cartId')},
+	});
+    const { state, updateCartDetails, loading } = useCart();
     const [subtotal, setSubtotal] = useState(0);
+    const [note, setNote] = useState(data?.getCart?.note || null);
     const navigate = useNavigate();
 
     useEffect(() => {
+        if(data) setNote(data?.getCart?.note);
         let total = 0;
         state.items.forEach((item) => {
             let itemTotal = 0;
@@ -23,7 +31,7 @@ const CartPage = () => {
             total += itemTotal;
         });
         setSubtotal(total.toFixed(2));
-    }, [state.items]);
+    }, [state.items, data]);
 
     const getPrice = (item) => {
         let total = 0;
@@ -40,8 +48,17 @@ const CartPage = () => {
         navigate('/');
     };
 
-    const handleCheckoutBtn = () => {
-        navigate('/checkout');
+    const handleCheckoutBtn = async() => {
+        try {
+            await updateCartDetails({
+                note: note
+            });
+        } catch(err) {
+            toast.error('Something went wrong. Please refresh the page and try again.');
+            console.error('Error handling submit:', err);
+        } finally {
+            // navigate('/checkout');
+        }
     }
 
     return(
@@ -98,6 +115,14 @@ const CartPage = () => {
                                     <div className="text-menu-title">Subtotal</div>
                                     <div className="text-menu-title">NZD {subtotal}</div>
                                 </div>
+                                <Textarea
+                                    variant="bordered"
+                                    label="Add a note"
+                                    placeholder="Any requirements, allergies"
+                                    className="max-w-full"
+                                    value={note}
+                                    onChange={(event) => setNote(event.target.value)}
+                                />
                                 <div className="flex justify-center w-full mx-auto items-center md:items-end md:justify-end">
                                 <Button className="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" radius="lg"
                                     onClick={handleCheckoutBtn}>

@@ -6,6 +6,9 @@ const cartSchema = new mongoose.Schema({
 		ref: "Table",
 		required: false,
 	},
+	note: {
+        type: String,
+    }
 })
 
 const Cart = mongoose.model("Cart", cartSchema);

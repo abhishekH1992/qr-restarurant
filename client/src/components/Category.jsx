@@ -23,7 +23,7 @@ const Category = () => {
                         <Link to={`${category.slug}`} className="relative">
                             <img 
                                 src={category.image}
-                                className="w-full h-100 s:h-200 rounded-lg object-cover"
+                                className="w-full h-200 rounded-lg object-cover"
                             />
                             <div className="absolute bottom-0 text-white text-center w-full text-md s:text-xl">{category.name}</div>
                         </Link>

@@ -1,7 +1,7 @@
 import React from "react";
 import { createContext, useEffect, useReducer } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import { CREATE_CART, ADD_TO_CART, CART_ITEM_ADD_ON, UPDATE_CART, DELETE_CART_ITEM } from "../graphql/mutations/cart.mutation";
+import { CREATE_CART, ADD_TO_CART, CART_ITEM_ADD_ON, UPDATE_CART, DELETE_CART_ITEM, UPDATE_CART_DETAILS } from "../graphql/mutations/cart.mutation";
 import { GET_CART_ITEMS } from "../graphql/queries/cart.query";
 import Cookies from 'js-cookie';
 
@@ -11,6 +11,7 @@ const SET_CART_ITEMS = 'SET_CART_ITEMS';
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 const UPDATE_ITEM_TO_CART = 'UPDATE_ITEM_TO_CART';
 const DELETE_ITEM_TO_CART = 'DELETE_ITEM_TO_CART';
+const UPDATE_CART_DETAIL = 'UPDATE_CART_DETAIL';
 
 const initialState = {
     items: [],
@@ -32,6 +33,8 @@ const cartReducer = (state, action) => {
                 ...state,
                 items: state.items.filter(item => item._id !== action.payload._id)
             };
+        case UPDATE_CART_DETAIL:
+            return { ...state,  cartDetails: action.payload };
         case SET_CART_ITEMS:
             return { ...state, items: action.payload };
         default:
@@ -62,6 +65,7 @@ const CartProvider = ({children}) => {
         }],
     });
     const [addCartAddOnsMutation] = useMutation(CART_ITEM_ADD_ON);
+    const [updateCartDetail] = useMutation(UPDATE_CART_DETAILS);
 
     const [getCartItems, { data, loading, error }] = useLazyQuery(GET_CART_ITEMS, {
         fetchPolicy: 'network-only',
@@ -118,8 +122,20 @@ const CartProvider = ({children}) => {
 
         dispatch({ type: DELETE_ITEM_TO_CART, payload: data.deleteCartItem });
     }
+    const updateCartDetails = async(note) => {
+        const { data } = await updateCartDetail({
+            variables: { 
+                input: { 
+                    ...note,
+                    _id: Cookies.get('cartId')
+                }
+            },
+        });
+
+        dispatch({ type: UPDATE_CART_DETAIL, payload: data.updateCartDetails });
+    }
     return (
-        <CartContext.Provider value={{ state, addToCart, updateCart, deleteCartItem, loading, error }}>
+        <CartContext.Provider value={{ state, addToCart, updateCart, deleteCartItem, updateCartDetails, loading, error }}>
             {children}
         </CartContext.Provider>
     );
