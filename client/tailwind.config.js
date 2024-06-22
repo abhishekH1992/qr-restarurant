@@ -33,6 +33,7 @@ export default {
                 'spacing-md': '1rem',
                 'spacing-lg': '1.25rem',
                 'spacing-xl': '1.50rem',
+                'eighty-vh': '80vh',
                 75: '75px',
                 100: '100px',
                 120: '120px',

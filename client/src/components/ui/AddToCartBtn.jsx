@@ -5,13 +5,13 @@ import { useCart } from "../../context/CartContext";
 import { TrashIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 import PropTypes from 'prop-types';
 
-const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu}) => {
+const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu, isCartPage}) => {
     const { state, updateCart, deleteCartItem } = useCart();
     const [changeQtyLoader, setChangeQtyLoader] = useState();
     const [cartItem, setCartItem] = useState();
 
     useEffect(() => {
-        if(menu.menuVariant.length > 0 || menu.menuAddOns.length > 0) {
+        if((menu.menuVariant?.length > 0 || menu.menuAddOns?.length > 0) && !isCartPage) {
             setCartItem(state.items?.filter(item => item?.menuId === menu._id));
         } else {
             setCartItem(state.items?.find(item => item?.menuId === menu._id));
@@ -19,7 +19,7 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
     }, [state.items, menu._id]);
 
     const updateCartItem = async(type) => {
-        if(menu.menuVariant.length > 0 || menu.menuAddOns.length > 0) {
+        if(!isCartPage && (menu.menuVariant?.length > 0 || menu.menuAddOns?.length > 0)) {
             if(type == 'minus' && getQty() == 1) {
                 await deleteCartItem(cartItem[0]._id);
             } else {
@@ -91,7 +91,8 @@ AddToCartBtn.propTypes = {
     btnText: PropTypes.string,
     loading: PropTypes.bool,
     pressFunction: PropTypes.func,
-    menu: PropTypes.object
+    menu: PropTypes.object,
+    isCartPage: PropTypes.bool
 };
 
 export default AddToCartBtn;

@@ -6,6 +6,7 @@ import AddToCartBtn from './ui/AddToCartBtn';
 import toast from "react-hot-toast";
 import { useCart } from '../context/CartContext';
 import { getPrice } from '../utils/cart.helper';
+import { Card } from '@nextui-org/react';
 
 const MenuCard = ({loading, list}) => {
     const [visible, setVisible] = useState(false);
@@ -42,7 +43,7 @@ const MenuCard = ({loading, list}) => {
             {loading ?
                 <div className="flex w-full flex-col gap-5 my-4">
                     {[...Array(2)].map((i, key) =>
-                        <div className="w-full space-y-5 p-4" key={key}>
+                        <Card className="w-full space-y-5 p-4" key={key}>
                             <Skeleton className="rounded-lg">
                                 <div className="h-24 rounded-lg bg-default-300"></div>
                             </Skeleton>
@@ -51,12 +52,12 @@ const MenuCard = ({loading, list}) => {
                                     <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
                                 </Skeleton>
                             </div>
-                        </div>
+                        </Card>
                     )}
                 </div>
             :   <div className="grid grid-cols-1 mt-10 gap-5">
                     {list.map((menu) => (
-                        <div className="flex flex-col s:flex-row gap-3 border-1 md:border-2 border-gray-200 p-2 rounded-md md:rounded-lg" key={menu._id}>
+                        <Card className="flex flex-col s:flex-row gap-2 p-3 rounded-md md:rounded-lg" key={menu._id}>
                             <img
                                 src={menu.image}
                                 className="h-100 sm:h-75 object-cover object-center rounded-md md:rounded-lg"
@@ -73,7 +74,7 @@ const MenuCard = ({loading, list}) => {
                                 {getPrice(menu)}
                                 <AddToCartBtn classNames={`bg-black py-1 h-8 mt-1 font-normal text-sm text-center cursor-pointer text-white`} radius={`sm`} pressFunction={() => addToCartOrOpenModal(menu)} btnText={`Add`} loading={addToCartLoading} menu={menu} />
                             </div>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             }

@@ -21,9 +21,17 @@ const cartReducer = (state, action) => {
         case ADD_ITEM_TO_CART:
             return { ...state, items: [...state.items, action.payload] };
         case UPDATE_ITEM_TO_CART:
-            return { ...state, items: [...state.items, action.payload] };
+            return {
+                ...state,
+                items: state.items.map(item =>
+                    item._id === action.payload._id ? { ...item, ...action.payload } : item
+                )
+            };
         case DELETE_ITEM_TO_CART:
-            return { ...state, items: [...state.items, action.payload] };
+            return {
+                ...state,
+                items: state.items.filter(item => item._id !== action.payload._id)
+            };
         case SET_CART_ITEMS:
             return { ...state, items: action.payload };
         default:
@@ -100,7 +108,7 @@ const CartProvider = ({children}) => {
         const { data } = await updateCartMutation({
             variables: { input: { ...cartItemParam }},
         });
-
+        console.log(data);
         dispatch({ type: UPDATE_ITEM_TO_CART, payload: data.updateCart });
     }
     const deleteCartItem = async(cartItemId) => {
