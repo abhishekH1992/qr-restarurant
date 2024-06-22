@@ -61,7 +61,6 @@ const cartResolver = {
         },
         deleteCartItem: async(_, {cartItemId}) => {
             try {
-                console.log(cartItemId);
                 await CartItemAddOn.deleteMany({cartItemId});
                 const data = await CartItem.findByIdAndDelete(cartItemId);
                 return data;
