@@ -1,5 +1,5 @@
 import Menu from "../models/menu.model.js";
-import MenuAddons from "../models/menuAddOns.model.js";
+import MenuAddons from "../models/menuAddons.model.js";
 import MenuVariant from "../models/menuVariant.model.js";
 
 const menuResolver = {

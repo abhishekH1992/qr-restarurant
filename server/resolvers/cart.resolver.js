@@ -2,7 +2,7 @@ import Cart from "../models/cart.model.js";
 import CartItem from "../models/cartItem.model.js";
 import CartItemAddOn from "../models/cartItemAddOn.model.js";
 import Menu from "../models/menu.model.js";
-import MenuAddons from "../models/menuAddOns.model.js";
+import MenuAddons from "../models/menuAddons.model.js";
 import MenuVariant from "../models/menuVariant.model.js";
 
 const cartResolver = {

@@ -1,4 +1,4 @@
-import MenuAddons from "../models/menuAddOns.model.js";
+import MenuAddons from "../models/menuAddons.model.js";
 
 const menuAddonsResolver = {
     Query: {

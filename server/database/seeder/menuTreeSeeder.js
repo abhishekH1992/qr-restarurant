@@ -2,7 +2,7 @@ import CategoryType from "../../models/categoryType.model.js";
 import Category from "../../models/category.model.js";
 import SubCategory from "../../models/subCategory.model.js";
 import Menu from "../../models/menu.model.js";
-import MenuAddons from "../../models/menuAddOns.model.js";
+import MenuAddons from "../../models/menuAddons.model.js";
 import MenuVariant from "../../models/menuVariant.model.js";
 
 const menuTreeSeeder = async() => {
