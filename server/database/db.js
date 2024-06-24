@@ -11,6 +11,11 @@ import menuVariantSeeder from './seeder/menuVariant.seeder.js';
 import Cart from "../models/cart.model.js";
 import CartItem from "../models/cartItem.model.js";
 import CartItemAddOn from "../models/cartItemAddOn.model.js";
+import Order from '../models/order.model.js';
+import OrderItem from '../models/orderItem.model.js';
+import OrderItemAddOn from '../models/orderItemAddOn.model.js';
+
+import menuTreeSeeder from './seeder/menuTreeSeeder.js';
 
 export const connectDB = async () => {
     try {
@@ -21,16 +26,21 @@ export const connectDB = async () => {
         await siteSeeder();
         await tableSeeder();
         await categoryTypeSeeder();
-        await categorySeeder();
-        await subCategorySeeder();
-        await menuSeeder();
-        await menuAddonsSeeder();
-        await menuVariantSeeder();
+        // await categorySeeder();
+        // await subCategorySeeder();
+        // await menuSeeder();
+        // await menuAddonsSeeder();
+        // await menuVariantSeeder();
 
-        // await Cart.deleteMany();
-        // await CartItem.deleteMany();
-        // await CartItemAddOn.deleteMany();
+        // await menuTreeSeeder();
 
+        await Cart.deleteMany();
+        await CartItem.deleteMany();
+        await CartItemAddOn.deleteMany();
+        await Order.deleteMany();
+        await OrderItem.deleteMany();
+        await OrderItemAddOn.deleteMany();
+        
         console.log('Seeders generated');
     } catch (err) {
         console.log(process.env.MONGO_URI, err);

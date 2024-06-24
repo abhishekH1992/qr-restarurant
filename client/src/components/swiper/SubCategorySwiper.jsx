@@ -3,10 +3,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
 
 const SubCategorySwiper = ({loading, list, selectedSubCategory, selected}) => {
-
     const changed = (subCategory) => {
         selectedSubCategory(subCategory);
     };
+
     return (
         <>
             {loading ?
@@ -49,7 +49,7 @@ const SubCategorySwiper = ({loading, list, selectedSubCategory, selected}) => {
                                 <div className={selected === l._id ? `p-2 cursor-pointer border-2 border-black w-28` : 'p-2 cursor-pointer w-28'} radius="none">
                                     <img
                                         src={l.image}
-                                        className="object-cover object-center"
+                                        className="object-cover object-center h-24"
                                     />
                                     <div className="text-center text-sm">{l.name}</div>
                                 </div>

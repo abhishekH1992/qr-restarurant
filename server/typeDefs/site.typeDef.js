@@ -6,6 +6,8 @@ const siteTypeDef = `#graphql
         email: String!
         logo: String!
         banner: [String!]
+        stripePublishKey: String
+        stripeSecretKey: String
     }
     type Query {
         site: Site

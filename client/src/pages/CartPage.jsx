@@ -11,16 +11,16 @@ import { useQuery } from "@apollo/client";
 import Cookies from 'js-cookie';
 
 const CartPage = () => {
+    const { state, updateCartDetails, loading } = useCart();
     const { data } = useQuery(GET_CART, {
 		variables: {cartId: Cookies.get('cartId')},
 	});
-    const { state, updateCartDetails, loading } = useCart();
     const [subtotal, setSubtotal] = useState(0);
-    const [note, setNote] = useState(data?.getCart?.note || null);
+    const [note, setNote] = useState(data?.getCart?.note || '');
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(data) setNote(data?.getCart?.note);
+        if(data) setNote(data?.getCart?.note || '');
         let total = 0;
         state.items.forEach((item) => {
             let itemTotal = 0;
@@ -57,7 +57,7 @@ const CartPage = () => {
             toast.error('Something went wrong. Please refresh the page and try again.');
             console.error('Error handling submit:', err);
         } finally {
-            // navigate('/checkout');
+            navigate('/checkout');
         }
     }
 

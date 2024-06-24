@@ -74,7 +74,6 @@ const cartResolver = {
                 const cart = await Cart.findByIdAndUpdate(input._id, input, {
                     new: true
                 });
-                console.log(cart);
                 return cart;
             } catch(err) {
                 console.log('Error in updating cart details', err);

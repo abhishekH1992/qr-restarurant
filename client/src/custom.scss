@@ -2,16 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-// .variant-radio-grid {
-//     div {
-//         label {
-//             div {
-//                 span {
-//                     &:last-child {
-//                         @apply text-modal-section-title-xs text-foreground-400;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
+.checkout-form {
+    .custom-input {
+        label {
+            margin-bottom: 0.25rem;
+            font-size: 0.93rem;
+            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            color: #30313d;
+            margin-bottom: 4px;
+        }
+        input {
+            padding: 0.50rem;
+            border-radius: 5px;
+            transition: background 0.15s ease, border 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+            border: 1px solid #e6e6e6;
+            box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+        }
+    }
+}

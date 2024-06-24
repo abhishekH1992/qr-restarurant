@@ -20,7 +20,15 @@ const siteSchema = new mongoose.Schema({
     banner: {
         type: [String],
         required: true
-    }
+    },
+    stripePublishKey: {
+        type: String,
+        required: true
+    },
+    stripeSecretKey: {
+        type: String,
+        required: true
+    },
 });
 
 const Site = mongoose.model('Site', siteSchema);

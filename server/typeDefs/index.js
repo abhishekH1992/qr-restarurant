@@ -9,7 +9,8 @@ import menuTypeDef from "./menu.typeDef.js";
 import menuAddonsTypeDef from "./menuAddons.typeDef.js";
 import menuVariantTypeDef from "./menuVariant.typeDef.js";
 import cartTypeDef from "./cart.typeDef.js";
+import orderTypeDef from "./order.typeDef.js";
 
-const mergedTypeDefs = mergeTypeDefs([siteTypeDef, tableTypeDef, categoryTypeTypeDef, categoryTypeDef, subCategoryTypeDef, menuTypeDef, menuAddonsTypeDef, menuVariantTypeDef, cartTypeDef]);
+const mergedTypeDefs = mergeTypeDefs([siteTypeDef, tableTypeDef, categoryTypeTypeDef, categoryTypeDef, subCategoryTypeDef, menuTypeDef, menuAddonsTypeDef, menuVariantTypeDef, cartTypeDef, orderTypeDef]);
 
 export default mergedTypeDefs;

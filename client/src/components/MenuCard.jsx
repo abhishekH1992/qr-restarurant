@@ -12,8 +12,9 @@ const MenuCard = ({loading, list}) => {
     const [visible, setVisible] = useState(false);
     const [selectedMenu, setSelectedMenu] = useState([]);
     const [{loading: addToCartLoading}, setAddToCartLoading] = useState(false);
-    const { addToCart } = useCart();
+    const { state, addToCart } = useCart();
 
+    // TODO check why state is setting and can't see Plus and minus
     const addToCartOrOpenModal = async(menu) => {
         if(menu.menuVariant.length > 0 || menu.menuAddOns.length > 0) {
             setVisible(true);
@@ -26,6 +27,7 @@ const MenuCard = ({loading, list}) => {
                     quantity: 1,
                     salePrice: menu.fixedPrice
                 });
+                console.log(state);
             } catch(err) {
                 setAddToCartLoading(false);
                 toast.error('Something went wrong. Please refresh the page and try again.');

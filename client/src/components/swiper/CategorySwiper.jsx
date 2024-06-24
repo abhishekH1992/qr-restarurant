@@ -1,11 +1,23 @@
 import { Skeleton } from "@nextui-org/react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from "react";
 
 const CategorySwiper = ({selectedCategoryId, loading, category, selected}) => {
     const categoryChanged = (cat) => {
         selectedCategoryId(cat);
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(cat._id);
+        }
     };
+
+    const swiperRef = useRef(null);
+
+    useEffect(() => {
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(selected);
+        }
+    },);
 
     return (
         <>
@@ -21,6 +33,9 @@ const CategorySwiper = ({selectedCategoryId, loading, category, selected}) => {
                 <Swiper
                     slidesPerView={2.8}
                     className="flex w-full gap-5 my-4"
+                    onSwiper={(swiper) => {
+                        swiperRef.current = swiper;
+                    }}
                     breakpoints={{
                         320: {
                             slidesPerView: 2.5,

@@ -10,7 +10,9 @@ const siteSeeder = async () => {
             './../public/banner/1.png',
             './../public/banner/2.png',
             './../public/banner/3.png',
-        ]
+        ],
+        stripePublishKey: "pk_test_zLMiBOLYLNfs80WvoZOoLSTU",
+        stripeSecretKey: "sk_test_vuHTmN8kjsDLa6SYuyJ3cOuP"
     });
     try {
         const isSiteExists = await Site.findOne({ name: data.name });

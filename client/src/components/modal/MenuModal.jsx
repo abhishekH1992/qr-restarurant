@@ -157,14 +157,14 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                                         {variant.name}
                                         </Radio>
                                         <div className="ml-auto text-modal-section-title-xs text-foreground-400">
-                                        {`NZD ` + variant.price}
+                                        {`NZD ` + variant.price.toFixed(2)}
                                         </div>
                                     </label>
                                     ))}
                                 </RadioGroup>
                                 </>
                             )}
-                            {menu.menuAddOns?.length && (
+                            {menu.menuAddOns?.length > 0 && (
                                 <>
                                 <div className={`text-modal-section-title-xs sm:modal-section-title-sm px-spacing-sm md:px-spacing-md lg:px-spacing-lg py-4 border-b-1 border-gray-200 uppercase text-gray-500 ${menu.menuVariant?.length > 0 ? `pt-8 pb-4` : ''}`}>
                                     Select Addons
@@ -181,7 +181,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                                         {addOn.name}
                                         </Checkbox>
                                         <div className="ml-auto text-modal-section-title-xs text-foreground-400">
-                                        {`NZD ` + addOn.price}
+                                        {`NZD ` + addOn.price.toFixed(2)}
                                         </div>
                                     </label>
                                     ))}

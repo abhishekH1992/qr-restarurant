@@ -10,3 +10,12 @@ export const GET_SITE = gql`
         }
     }
 `;
+
+export const GET_PAYMENT_API = gql`
+    query GetSite {
+        site {
+            stripePublishKey
+            stripeSecretKey
+        }
+    }
+`;

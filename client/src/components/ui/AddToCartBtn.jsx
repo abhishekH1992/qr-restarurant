@@ -9,6 +9,7 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
     const { state, updateCart, deleteCartItem } = useCart();
     const [changeQtyLoader, setChangeQtyLoader] = useState();
     const [cartItem, setCartItem] = useState();
+    const [isInCart, setIsInCart] = useState(false);
 
     useEffect(() => {
         if((menu.menuVariant?.length > 0 || menu.menuAddOns?.length > 0) && !isCartPage) {
@@ -16,7 +17,8 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
         } else {
             setCartItem(state.items?.find(item => item?.menuId === menu._id));
         }
-    }, [state.items, menu._id]);
+        setIsInCart(state.items.some(item => item?.menuId === menu._id));
+    }, [state.items, menu._id, isCartPage]);
 
     const updateCartItem = async(type) => {
         if(!isCartPage && (menu.menuVariant?.length > 0 || menu.menuAddOns?.length > 0)) {
@@ -62,7 +64,7 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
 
     return (
         <>
-            {(cartItem && !Array.isArray(cartItem)) || (Array.isArray(cartItem) && cartItem.length > 0)?
+            {isInCart && !loading ?
                 <div className="flex items-center">
                     <div className="bg-black h-8 min-w-8 max-w-8 font-normal text-sm text-center cursor-pointer text-white rounded-l-lg flex items-center justify-center" onClick={() => updateCartItem('minus')} disabled={changeQtyLoader}>
                         {(cartItem && !Array.isArray(cartItem) && cartItem.quantity == 1) || getQty(cartItem) == 1 ?

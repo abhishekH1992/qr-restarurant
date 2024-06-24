@@ -12,6 +12,7 @@ const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
 const UPDATE_ITEM_TO_CART = 'UPDATE_ITEM_TO_CART';
 const DELETE_ITEM_TO_CART = 'DELETE_ITEM_TO_CART';
 const UPDATE_CART_DETAIL = 'UPDATE_CART_DETAIL';
+const RESET_CART = 'RESET_CART';
 
 const initialState = {
     items: [],
@@ -37,6 +38,8 @@ const cartReducer = (state, action) => {
             return { ...state,  cartDetails: action.payload };
         case SET_CART_ITEMS:
             return { ...state, items: action.payload };
+        case RESET_CART:
+            return initialState;
         default:
             return state;
     }
@@ -134,8 +137,11 @@ const CartProvider = ({children}) => {
 
         dispatch({ type: UPDATE_CART_DETAIL, payload: data.updateCartDetails });
     }
+    const resetCart = () => {
+        dispatch({ type: RESET_CART });
+    }
     return (
-        <CartContext.Provider value={{ state, addToCart, updateCart, deleteCartItem, updateCartDetails, loading, error }}>
+        <CartContext.Provider value={{ state, addToCart, updateCart, deleteCartItem, updateCartDetails, resetCart, loading, error }}>
             {children}
         </CartContext.Provider>
     );

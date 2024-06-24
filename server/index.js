@@ -27,6 +27,7 @@ app.use(
     '/graphql',
     cors({
         origin: 'http://localhost:3000',
+        // origin: 'https://c923-203-211-108-227.ngrok-free.app',
         credentials: true
     }),
     express.json(),
