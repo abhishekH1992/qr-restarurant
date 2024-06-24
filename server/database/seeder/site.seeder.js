@@ -5,11 +5,11 @@ const siteSeeder = async () => {
         restaurant_id: 1,
         name: 'ABC Restaurant',
         email: 'abhishekhonrao103@gmail.com',
-        logo: './../public/logo.png',
+        logo: './../logo.png',
         banner: [
-            './../public/banner/1.png',
-            './../public/banner/2.png',
-            './../public/banner/3.png',
+            './../banner/1.png',
+            './../banner/2.png',
+            './../banner/3.png',
         ],
         stripePublishKey: "pk_test_zLMiBOLYLNfs80WvoZOoLSTU",
         stripeSecretKey: "sk_test_vuHTmN8kjsDLa6SYuyJ3cOuP"

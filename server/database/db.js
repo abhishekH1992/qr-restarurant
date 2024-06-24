@@ -34,12 +34,12 @@ export const connectDB = async () => {
 
         // await menuTreeSeeder();
 
-        await Cart.deleteMany();
-        await CartItem.deleteMany();
-        await CartItemAddOn.deleteMany();
-        await Order.deleteMany();
-        await OrderItem.deleteMany();
-        await OrderItemAddOn.deleteMany();
+        // await Cart.deleteMany();
+        // await CartItem.deleteMany();
+        // await CartItemAddOn.deleteMany();
+        // await Order.deleteMany();
+        // await OrderItem.deleteMany();
+        // await OrderItemAddOn.deleteMany();
         
         console.log('Seeders generated');
     } catch (err) {

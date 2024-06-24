@@ -9,8 +9,10 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { connectDB } from './database/db.js';
 import mergedTypeDef from './typeDefs/index.js';
 import mergedResolver from './resolvers/index.js';
+import path from 'path';
 
 dotenv.config();
+const __dirname = path.resolve();
 const app = express();
 const httpServer = http.createServer(app);
 
@@ -35,6 +37,11 @@ app.use(
         context: async ({ req, res }) => ({ req }),
     }),
 );
+
+app.use(express.static(path.join(__dirname, "client/dist")));
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client/dist", "index.html"))
+});
 
 await new Promise((resolve) => httpServer.listen({ port: 4000 }, resolve));
 await connectDB();

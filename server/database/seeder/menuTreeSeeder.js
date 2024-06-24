@@ -138,7 +138,7 @@ const menuTreeSeeder = async() => {
                     name: s.name,
                     category: cat._id,
                     isEnable: true,
-                    image: './../public/subcategory/'+s.name.toLowerCase().split(" ").join("-")+'.png'
+                    image: './../subcategory/'+s.name.toLowerCase().split(" ").join("-")+'.png'
                 });
 
                 let sub = await sub1.save();
@@ -151,7 +151,7 @@ const menuTreeSeeder = async() => {
                         menuData1 = new Menu({
                             name: menu,
                             description: sub.name+' '+menu+' - '+description,
-                            image: './../public/menu/'+menu.toLowerCase().split(" ").join("-")+'.png',
+                            image: './../menu/'+menu.toLowerCase().split(" ").join("-")+'.png',
                             fixedPrice: parseFloat(price),
                             lowestPrice: parseFloat(price),
                             highestPrice: parseFloat(price) + 5,
@@ -166,7 +166,7 @@ const menuTreeSeeder = async() => {
                         menuData1 = new Menu({
                             name: menu,
                             description: sub.name+' '+menu+' - '+description,
-                            image: './../public/menu/'+menu.toLowerCase().split(" ").join("-")+'.png',
+                            image: './../menu/'+menu.toLowerCase().split(" ").join("-")+'.png',
                             fixedPrice: parseFloat(price),
                             isEnable: true,
                             subCategory: sub._id
