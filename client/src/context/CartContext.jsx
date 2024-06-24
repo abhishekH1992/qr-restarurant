@@ -49,12 +49,7 @@ const CartProvider = ({children}) => {
     const [state, dispatch] = useReducer(cartReducer, initialState);
 
     const [createCartMutation] = useMutation(CREATE_CART);
-    const [addToCartMutation] = useMutation(ADD_TO_CART, {
-        refetchQueries: [{ 
-            query: GET_CART_ITEMS ,
-            variables: { cartId: Cookies.get('cartId') },
-        }],
-    });
+    const [addToCartMutation] = useMutation(ADD_TO_CART);
     const [updateCartMutation] = useMutation(UPDATE_CART, {
         refetchQueries: [{ 
             query: GET_CART_ITEMS ,
@@ -108,8 +103,7 @@ const CartProvider = ({children}) => {
                 variables: { input: { cartItemId, addOnId: addonIds } },
             });
         }
-
-        dispatch({ type: ADD_ITEM_TO_CART, payload: data.addToCart });
+        dispatch({ type: ADD_ITEM_TO_CART, payload: data.cartItem });
     }
     const updateCart = async(cartItemParam, addonIds = []) => {
         const { data } = await updateCartMutation({
@@ -122,7 +116,7 @@ const CartProvider = ({children}) => {
         const { data } = await deleteCartItemMutation({
             variables: {cartItemId},
         });
-
+        console.log(data);
         dispatch({ type: DELETE_ITEM_TO_CART, payload: data.deleteCartItem });
     }
     const updateCartDetails = async(note) => {

@@ -81,8 +81,9 @@ const CartPage = () => {
                         )}
                     </div>
                 :   <Card className="max-w-940 grid grid-cols-1 mt-10 gap-5 px-2 py-5">
-                        {state.items && state.items.length > 0 ? (
+                        {state.items && state.items?.length > 0 ? (
                             <>
+                                {console.log(state.items)}
                                 {state.items.map((item) => (
                                     <div className="flex flex-col sm:flex-row gap-2 p-2 py-4 border-b-1 border-gray-200" key={item._id}>
                                         {item.menu && (
