@@ -1,11 +1,26 @@
 import { Skeleton } from "@nextui-org/react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from "react";
 
 const SubCategorySwiper = ({loading, list, selectedSubCategory, selected}) => {
+    const swiperRef = useRef(null);
     const changed = (subCategory) => {
         selectedSubCategory(subCategory);
+        if (swiperRef.current) {
+            const index = list.findIndex(c => c._id === subCategory._id);
+            swiperRef.current.slideTo(index, 0);
+        }
     };
+
+    useEffect(() => {
+        if (swiperRef.current && selectedSubCategory) {
+            const index = list.findIndex(c => c._id === selectedSubCategory);
+            if (index !== -1) {
+                swiperRef.current.slideTo(index, 0);
+            }
+        }
+    }, [selected, selectedSubCategory, list]);
 
     return (
         <>

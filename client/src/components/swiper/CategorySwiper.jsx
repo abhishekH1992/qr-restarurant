@@ -4,20 +4,23 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef } from "react";
 
 const CategorySwiper = ({selectedCategoryId, loading, category, selected}) => {
+    const swiperRef = useRef(null);
     const categoryChanged = (cat) => {
         selectedCategoryId(cat);
         if (swiperRef.current) {
-            swiperRef.current.slideTo(cat._id);
+            const index = category.findIndex(c => c._id === cat._id);
+            swiperRef.current.slideTo(index, 0);
         }
     };
 
-    const swiperRef = useRef(null);
-
     useEffect(() => {
-        if (swiperRef.current) {
-            swiperRef.current.slideTo(selected);
+        if (swiperRef.current && selected) {
+            const index = category.findIndex(c => c._id === selected);
+            if (index !== -1) {
+                swiperRef.current.slideTo(index, 0);
+            }
         }
-    },);
+    }, [selected, category]);
 
     return (
         <>
@@ -42,11 +45,15 @@ const CategorySwiper = ({selectedCategoryId, loading, category, selected}) => {
                             spaceBetween: 20,
                         },
                         480: {
-                            slidesPerView: 2.8,
+                            slidesPerView: 3.2,
                             spaceBetween: 20,
                         },
                         768: {
                             slidesPerView: 4.5,
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 5.5,
                             spaceBetween: 20,
                         },
                     }}

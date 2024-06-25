@@ -62,7 +62,12 @@ const CartProvider = ({children}) => {
             variables: { cartId: Cookies.get('cartId') },
         }],
     });
-    const [addCartAddOnsMutation] = useMutation(CART_ITEM_ADD_ON);
+    const [addCartAddOnsMutation] = useMutation(CART_ITEM_ADD_ON, {
+        refetchQueries: [{ 
+            query: GET_CART_ITEMS ,
+            variables: { cartId: Cookies.get('cartId') },
+        }],
+    });
     const [updateCartDetail] = useMutation(UPDATE_CART_DETAILS);
 
     const [getCartItems, { data, loading, error }] = useLazyQuery(GET_CART_ITEMS, {

@@ -17,9 +17,9 @@ const Category = () => {
                 What would you like to order?
                 <div className="w-ten-percent h-px bottom-minus-10 border-b-3 border-brand-color my-2"></div>
             </div>
-            <div className="grid grid-cols-1 s:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-5">
+            <div className="grid grid-cols-1 s:grid-cols-2 md:grid-cols-3 gap-5 sm:gap-5">
                 {data.category.map((category, key) => (
-                    <div className="relative mt-5" key={key} >
+                    <div className="relative" key={key} >
                         <Link to={`${category.slug}`} className="relative">
                             <img 
                                 src={category.image}

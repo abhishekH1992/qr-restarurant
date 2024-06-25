@@ -14,7 +14,6 @@ const MenuCard = ({loading, list}) => {
     const [{loading: addToCartLoading}, setAddToCartLoading] = useState(false);
     const { state, addToCart } = useCart();
 
-    // TODO check why state is setting and can't see Plus and minus
     const addToCartOrOpenModal = async(menu) => {
         if(menu.menuVariant.length > 0 || menu.menuAddOns.length > 0) {
             setVisible(true);
@@ -59,10 +58,10 @@ const MenuCard = ({loading, list}) => {
                 </div>
             :   <div className="grid grid-cols-1 mt-10 gap-5">
                     {list.map((menu) => (
-                        <Card className="flex flex-col s:flex-row gap-2 p-3 rounded-md md:rounded-lg" key={menu._id}>
+                        <Card className="flex flex-col sm:flex-row gap-2 p-3 rounded-md md:rounded-lg" key={menu._id}>
                             <img
                                 src={menu.image}
-                                className="h-200 sm:h-75 object-cover object-center rounded-md md:rounded-lg"
+                                className="h-200 sm:h-100 md:h-75 object-cover object-center rounded-md md:rounded-lg"
                             />
                             <div className="text-sm w-full">
                                 <div className="text-menu-title pb-2">{menu.name}</div>

@@ -19,7 +19,7 @@ export default {
             },
             colors: {
                 brand: {
-                    color: '#642afb',
+                    color: '#F5A524',
                 },
             },
             spacing: {

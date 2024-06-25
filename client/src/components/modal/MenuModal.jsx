@@ -148,7 +148,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                                 <RadioGroup
                                     onChange={handleVariantChange}
                                     value={selectedOptions.variant.id}
-                                    color="secondary"
+                                    color="warning"
                                     className="variant-radio-grid px-spacing-sm md:px-spacing-md lg:px-spacing-lg py-4"
                                 >
                                     {menu.menuVariant.map((variant) => (
@@ -172,7 +172,7 @@ const MenuModal = ({ menu, visible, closeModal }) => {
                                 <CheckboxGroup
                                     onChange={handleAddonChange}
                                     value={selectedOptions.addons.item}
-                                    color="secondary"
+                                    color="warning"
                                     className="variant-radio-grid px-spacing-sm md:px-spacing-md lg:px-spacing-lg py-4"
                                 >
                                     {menu.menuAddOns.map((addOn) => (

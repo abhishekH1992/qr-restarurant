@@ -4,12 +4,15 @@ import toast from "react-hot-toast";
 import { useCart } from "../../context/CartContext";
 import { TrashIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 import PropTypes from 'prop-types';
+import RemoveMenuModal from "../modal/RemoveMenuModal";
 
 const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu, isCartPage}) => {
     const { state, updateCart, deleteCartItem } = useCart();
     const [changeQtyLoader, setChangeQtyLoader] = useState();
     const [cartItem, setCartItem] = useState();
     const [isInCart, setIsInCart] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const [selectedCartItem, setSelectedCartItem] = useState([]);
 
     useEffect(() => {
         if((menu.menuVariant?.length > 0 || menu.menuAddOns?.length > 0) && !isCartPage) {
@@ -25,7 +28,24 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
             if(type == 'minus' && getQty() == 1) {
                 await deleteCartItem(cartItem[0]._id);
             } else {
-                pressFunction();
+                if(type == 'plus') {
+                    pressFunction();
+                } else if(cartItem.length > 1 ) {
+                    setVisible(true);
+                    setSelectedCartItem(cartItem);
+                } else {
+                    try {
+                        await deleteCartItem(cartItem._id);
+                    } catch(err) {
+                        setChangeQtyLoader(false);
+                        toast.error('Something went wrong. Please refresh the page and try again.');
+                        console.error('Error handling submit:', err);
+                    } finally {
+                        setCartItem(state.items.find(item => item.menuId === menu._id));
+                        setChangeQtyLoader(false);
+                        toast.success('Cart updated');
+                    }
+                }
             }
         } else if(type) {
             try{
@@ -62,6 +82,8 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
         return 0;
     }
 
+    const closeModal = () => setVisible(false);
+
     return (
         <>
             {isInCart && !loading ?
@@ -83,6 +105,7 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
                     {loading ? <Spinner /> : btnText}
                 </Button>
             }
+            <RemoveMenuModal cartItems={selectedCartItem} visible={visible} closeModal={closeModal} menu={menu} />
         </>
     );
 }

@@ -80,7 +80,7 @@ const CartPage = () => {
                             </div>
                         )}
                     </div>
-                :   <Card className="max-w-940 grid grid-cols-1 mt-10 gap-5 px-2 py-5">
+                :   <Card className="max-w-940 grid grid-cols-1 gap-5 px-2 mt-5 mt-8">
                         {state.items && state.items?.length > 0 ? (
                             <>
                                 {console.log(state.items)}
