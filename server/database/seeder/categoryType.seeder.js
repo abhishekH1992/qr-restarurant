@@ -4,11 +4,12 @@ const catgeoryTypeSeeder = async() => {
     try {
         // TODO: Error while getting collection count 
         // const isExists = new CategoryType.collection.estimatedDocumentCount();
+        // await CategoryType.deleteMany();
         const isExists = true;
         if(!isExists) {
             const data = await CategoryType.insertMany([
-                { name: 'Food' },
-                { name: 'Liquor' }
+                { name: 'Food', isBidable: false },
+                { name: 'Liquor', isBidable: true }
             ]);
             console.log("catgeoryType created successfully");
             return data;

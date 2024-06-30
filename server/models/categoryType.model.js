@@ -5,6 +5,10 @@ const categoryTypeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    isBidable: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const CategoryType = mongoose.model('CategoryTypes', categoryTypeSchema);

@@ -1,9 +1,10 @@
 const categoryTypeTypeDef = `#graphql
-    type Type {
+    type CategoryType {
         name: String!
+        isBidable: Boolean
     }
     type Query {
-        categoryType: [Type!]
+        categoryType: [CategoryType!]
     }
 `;
 

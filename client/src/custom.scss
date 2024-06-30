@@ -20,3 +20,14 @@
         }
     }
 }
+
+.bid-input::-webkit-outer-spin-button,
+.bid-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide the spinner buttons in Firefox */
+.bid-input {
+  -moz-appearance: textfield;
+}

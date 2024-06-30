@@ -1,5 +1,4 @@
 import { useQuery } from "@apollo/client";
-import SubPagesHeader from "../components/SubPagesHeader";
 import { useParams } from "react-router-dom";
 import GET_ENABLE_CATEGORY from "../graphql/queries/category.query";
 import 'swiper/css';
@@ -12,6 +11,7 @@ const CategoryPage = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [subCategoryList, setSubCategoryList] = useState([]);
     const [menuList, setMenuList] = useState([]);
+    const [isBidable, setIsBidable] = useState(false);
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
     const { categorySlug } = useParams();
     const { data, loading } = useQuery(GET_ENABLE_CATEGORY, {
@@ -28,6 +28,7 @@ const CategoryPage = () => {
                 setSubCategoryList(cat.subCategory);
                 setSelectedSubCategory(cat.subCategory[0]?._id);
                 setMenuList(cat.subCategory[0]?.menu);
+                setIsBidable(cat.categoryType.isBidable);
             }
         }
     }, [data, loading, categorySlug]);
@@ -37,6 +38,7 @@ const CategoryPage = () => {
         setSubCategoryList(cat.subCategory);
         setSelectedSubCategory(cat.subCategory[0]?._id);
         setMenuList(cat.subCategory[0]?.menu);
+        setIsBidable(cat.categoryType.isBidable);
     }
 
     const subCategoryChanged= async(subcategory) => {
@@ -46,7 +48,6 @@ const CategoryPage = () => {
 
     return (
         <>
-            <SubPagesHeader name={`Menu`} />
             <div className="max-w-940 px-spacing-sm md:px-spacing-md lg:px-spacing-lg mx-auto">
                 <CategorySwiper 
                     loading={loading} 
@@ -63,6 +64,7 @@ const CategoryPage = () => {
                 <MenuCard
                     loading={loading} 
                     list={menuList}
+                    isBidable={isBidable}
                 />
             </div>
         </>

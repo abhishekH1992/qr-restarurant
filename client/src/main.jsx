@@ -6,6 +6,7 @@ import {NextUIProvider} from '@nextui-org/react'
 import { BrowserRouter } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { CartProvider } from './context/CartContext'
+import { SiteProvider } from './context/SiteContext.jsx'
 
 const client = new ApolloClient({
     // TODO - Uncomment
@@ -19,11 +20,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <BrowserRouter>
             <ApolloProvider client={client}>
-                <CartProvider>
-                    <NextUIProvider>
-                        <App />
-                    </NextUIProvider>
-                </CartProvider>
+                <SiteProvider>
+                    <CartProvider>
+                        <NextUIProvider>
+                            <App />
+                        </NextUIProvider>
+                    </CartProvider>
+                </SiteProvider>
             </ApolloProvider>
         </BrowserRouter>
     </React.StrictMode>,

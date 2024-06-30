@@ -6,7 +6,7 @@ import { TrashIcon, PlusIcon, MinusIcon } from "@heroicons/react/24/solid";
 import PropTypes from 'prop-types';
 import RemoveMenuModal from "../modal/RemoveMenuModal";
 
-const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu, isCartPage}) => {
+const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu, isCartPage, isBidable}) => {
     const { state, updateCart, deleteCartItem } = useCart();
     const [changeQtyLoader, setChangeQtyLoader] = useState();
     const [cartItem, setCartItem] = useState();
@@ -102,7 +102,7 @@ const AddToCartBtn = ({classNames, radius, btnText, loading, pressFunction, menu
                 </div>
                 :
                 <Button className={classNames} radius={radius} onPress={pressFunction} disabled={loading ? true : false}>
-                    {loading ? <Spinner /> : btnText}
+                    {loading ? <Spinner /> : isBidable ? `Bid` : btnText}
                 </Button>
             }
             <RemoveMenuModal cartItems={selectedCartItem} visible={visible} closeModal={closeModal} menu={menu} />
@@ -117,7 +117,8 @@ AddToCartBtn.propTypes = {
     loading: PropTypes.bool,
     pressFunction: PropTypes.func,
     menu: PropTypes.object,
-    isCartPage: PropTypes.bool
+    isCartPage: PropTypes.bool,
+    isBidable: PropTypes.bool
 };
 
 export default AddToCartBtn;

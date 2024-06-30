@@ -8,7 +8,6 @@ import MenuVariant from "../models/menuVariant.model.js";
 import Order from '../models/order.model.js';
 import OrderItem from '../models/orderItem.model.js';
 import OrderItemAddOn from '../models/orderItemAddOn.model.js';
-import { Query } from 'mongoose';
 
 const orderResolver = {
     Mutation: {
@@ -65,7 +64,6 @@ const orderResolver = {
             }
 
             const cartItems = await CartItem.find({cartId: cartId});
-            const count = await CartItem.countDocuments({cartId: cartId});
             let i = 0;
             for (const item of cartItems) {
                 i = i + 1;
@@ -101,6 +99,35 @@ const orderResolver = {
                     variantId: savedOrderItem.variantId,
                     salePrice: savedOrderItem.salePrice,
                 });
+
+                //Check if current price
+                const currentMenu = await Menu.findById(item.menuId)
+                    .populate({
+                        path: 'subCategory',
+                        populate: {
+                            path: 'category',
+                            populate: {
+                                path: 'categoryType',
+                                model: 'CategoryTypes',
+                                select: 'isBidable'
+                            }
+                        }
+                    })
+                    .exec();
+
+                const isBidable = currentMenu.subCategory.category.categoryType.isBidable;
+                if(isBidable) {
+                    if(currentMenu.highestPrice > savedOrderItem.salePrice) {
+                        let step = savedOrderItem.salePrice + currentMenu.step;
+                        if(step < currentMenu.highestPrice) {
+                            await Menu.findByIdAndUpdate(item.menuId, {currentPrice: step});
+                        } else if(step > currentMenu.highestPrice) {
+                            await Menu.findByIdAndUpdate(item.menuId, {currentPrice: currentMenu.highestPrice});
+                        }
+                    } else {
+                        await Menu.findByIdAndUpdate(item.menuId, {currentPrice: currentMenu.highestPrice});
+                    }
+                }
             }
 
             return order;
@@ -109,8 +136,7 @@ const orderResolver = {
     OrderItems: {
         menu: async(parent) => {
             try {
-                console.log(parent);
-               return await Menu.findById(parent.menuId); 
+                return await Menu.findById(parent.menuId); 
             } catch (err) {
                 console.log('Error in fetching order menu', err);
                 throw new Error(err.message || 'Internal Server error');
