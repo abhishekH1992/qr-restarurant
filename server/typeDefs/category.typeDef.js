@@ -4,7 +4,7 @@ const categoryTypeDef = `#graphql
         name: String!
         slug: String!
         isEnable: Boolean!
-        categoryType: ID!
+        categoryType: CategoryType!
         image: String!
         subCategory: [SubCategory!]
     }

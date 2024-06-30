@@ -7,6 +7,9 @@ const GET_ENABLE_CATEGORY = gql`
             name
             image
             slug
+            categoryType {
+                isBidable
+            }
             subCategory {
                 _id
                 name
@@ -17,6 +20,8 @@ const GET_ENABLE_CATEGORY = gql`
                     description
                     image
                     fixedPrice
+                    lowestPrice
+                    highestPrice
                     menuAddOns {
                         _id
                         name

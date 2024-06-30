@@ -65,20 +65,22 @@ const CheckoutForm = () => {
             }
         } else if(paymentIntent && paymentIntent.status === "succeeded") {
             try {
-                await placeOrder({
+                const { data } = await placeOrder({
                     variables: {
                         cartId: Cookies.get('cartId'),
                     }
                 });
+
+                let getOldOrders = Cookies.get('orderId') || [];
+                getOldOrders.push(data.placeOrder._id);
                 await resetCart();
                 Cookies.remove('cartId');
-                Cookies.remove('tableId');
+                // Cookies.remove('tableId');
                 toast.success('Order Placed');
+                navigate(`/success/${data.placeOrder._id}`);
             } catch(err) {
                 console.log("Erro while placing order", err.message);
                 toast.error("Something went wrong. Please refresh the page.");
-            } finally {
-                navigate('/success');
             }
         }
       

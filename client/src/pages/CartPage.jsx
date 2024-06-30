@@ -1,4 +1,3 @@
-import SubPagesHeader from "../components/SubPagesHeader";
 import { useCart } from "../context/CartContext";
 import { Skeleton } from "@nextui-org/react";
 import AddToCartBtn from "../components/ui/AddToCartBtn";
@@ -63,7 +62,6 @@ const CartPage = () => {
 
     return(
         <>
-            <SubPagesHeader name={`Confirm your order`} />
             <div className="max-w-940 px-spacing-sm md:px-spacing-md lg:px-spacing-lg mx-auto">
                 {loading ?
                     <div className="flex w-full flex-col gap-5 my-4">
@@ -83,7 +81,6 @@ const CartPage = () => {
                 :   <Card className="max-w-940 grid grid-cols-1 gap-5 px-2 mt-5 mt-8">
                         {state.items && state.items?.length > 0 ? (
                             <>
-                                {console.log(state.items)}
                                 {state.items.map((item) => (
                                     <div className="flex flex-col sm:flex-row gap-2 p-2 py-4 border-b-1 border-gray-200" key={item._id}>
                                         {item.menu && (
@@ -124,11 +121,11 @@ const CartPage = () => {
                                     value={note}
                                     onChange={(event) => setNote(event.target.value)}
                                 />
-                                <div className="flex justify-center w-full mx-auto items-center md:items-end md:justify-end">
-                                <Button className="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" radius="lg"
-                                    onClick={handleCheckoutBtn}>
-                                    Go To Checkout
-                                </Button>
+                                <div className="flex justify-center w-full mx-auto my-2 items-center md:items-end md:justify-end">
+                                    <Button className="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" radius="lg"
+                                        onClick={handleCheckoutBtn}>
+                                        Go To Checkout
+                                    </Button>
                                 </div>
                             </>
                         ) : (

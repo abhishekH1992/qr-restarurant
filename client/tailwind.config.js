@@ -20,6 +20,7 @@ export default {
             colors: {
                 brand: {
                     color: '#F5A524',
+                    chatbg: '#FBDBA7'
                 },
             },
             spacing: {
@@ -33,6 +34,7 @@ export default {
                 'spacing-md': '1rem',
                 'spacing-lg': '1.25rem',
                 'spacing-xl': '1.50rem',
+                'fifty-vh': '50vh',
                 'eighty-vh': '80vh',
                 75: '75px',
                 100: '100px',

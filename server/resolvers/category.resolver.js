@@ -1,3 +1,4 @@
+import CategoryType from "../models/categoryType.model.js";
 import Category from "../models/category.model.js";
 import SubCategory from "../models/subCategory.model.js";
 
@@ -80,6 +81,14 @@ const categoryResolver = {
                 throw new Error(err.message || "Internal server error");
             }
         },
+        categoryType: async(parent) => {
+            try {
+                return await CategoryType.findById(parent.categoryType);
+            } catch (err) {
+                console.log("Error in category.categoryType resolver: ", err);
+                throw new Error(err.message || "Internal server error");
+            }
+        }
     }
 }
 

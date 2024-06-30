@@ -6,7 +6,6 @@ import { CREATE_PAYMENT_INTENT } from "../graphql/mutations/order.mutation";
 import { useMutation } from "@apollo/client";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/checkout/CheckoutForm";
-import SubPagesHeader from "../components/SubPagesHeader";
 import { useCart } from "../context/CartContext";
 
 const CategoryPage = () => {
@@ -49,7 +48,6 @@ const CategoryPage = () => {
     const stripePromise = loadStripe(data.site.stripePublishKey);
     return (
         <>
-            <SubPagesHeader name="Place the order" />
             {stripePromise && clientIntentSecret &&
                 <Elements stripe={stripePromise} options={clientIntentSecret}>
                     <CheckoutForm />

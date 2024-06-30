@@ -10,7 +10,8 @@ import menuAddonsResolver from "./menuAddons.resolver.js";
 import menuVariantResolver from "./menuVariant.resolver.js";
 import cartResolver from "./cart.resolver.js";
 import orderResolver from "./order.resolver.js";
+import bidResolver from "./bid.resolver.js";
 
-const mergedResolvers = mergeResolvers([siteResolver, tableResolver, categoryTypeResolver, categoryResolver, subCategoryResolver, menuResolver, menuAddonsResolver, menuVariantResolver, cartResolver, orderResolver]);
+const mergedResolvers = mergeResolvers([siteResolver, tableResolver, categoryTypeResolver, categoryResolver, subCategoryResolver, menuResolver, menuAddonsResolver, menuVariantResolver, cartResolver, orderResolver, bidResolver]);
 
 export default mergedResolvers;
