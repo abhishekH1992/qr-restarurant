@@ -18,6 +18,13 @@
             border: 1px solid #e6e6e6;
             box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
         }
+        select {
+          padding: 0.50rem;
+          border-radius: 5px;
+          transition: background 0.15s ease, border 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+          border: 1px solid #e6e6e6;
+          box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.03), 0px 3px 6px rgba(0, 0, 0, 0.02);
+        }
     }
 }
 
@@ -30,4 +37,28 @@
 /* Hide the spinner buttons in Firefox */
 .bid-input {
   -moz-appearance: textfield;
+}
+
+@keyframes blink {
+  0%, 20%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.dot-1 {
+  animation: blink 1s infinite;
+  animation-delay: 0s;
+}
+
+.dot-2 {
+  animation: blink 1s infinite;
+  animation-delay: 0.2s;
+}
+
+.dot-3 {
+  animation: blink 1s infinite;
+  animation-delay: 0.4s;
 }

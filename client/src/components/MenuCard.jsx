@@ -70,7 +70,7 @@ const MenuCard = ({loading, list, isBidable}) => {
                         <Card className="flex flex-col sm:flex-row gap-2 p-3 rounded-md md:rounded-lg" key={menu._id}>
                             <img
                                 src={menu.image}
-                                className="h-200 sm:h-100 md:h-75 object-cover object-center rounded-md md:rounded-lg"
+                                className={`h-200 sm:h-100 md:h-75 ${!isBidable ? `object-cover object-center` : `object-contain`} rounded-md md:rounded-lg`} //TODO - Remove this object cover logic once get correct images
                             />
                             <div className="text-sm w-full">
                                 <div className="text-menu-title pb-2">{menu.name}</div>

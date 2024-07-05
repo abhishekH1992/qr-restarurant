@@ -4,6 +4,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import SuccessPage from "./pages/SuccessPage";
+import OrdersPage from "./pages/OrdersPage";
 import { Toaster } from "react-hot-toast"
 import ViewCartBtn from "./components/ui/ViewCartBtn";
 import Header from "./components/Header";
@@ -17,6 +18,7 @@ export default function App() {
                     <Route path='/' element={<HomePage />} />
                     <Route path='/cart' element={<CartPage />} />
                     <Route path='/checkout' element={<CheckoutPage />} />
+                    <Route path='/orders' element={<OrdersPage />} />
                     <Route path='/success/:order_id' element={<SuccessPage />} />
                     <Route path='/:categorySlug' element={<CategoryPage />} />
                 </Routes>

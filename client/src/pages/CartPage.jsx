@@ -18,6 +18,8 @@ const CartPage = () => {
     const [note, setNote] = useState(data?.getCart?.note || '');
     const navigate = useNavigate();
 
+    const isBeer = ['TIGER', 'STELLA', 'BUDWEISER', 'HEINEKEN'];
+
     useEffect(() => {
         if(data) setNote(data?.getCart?.note || '');
         let total = 0;
@@ -78,7 +80,7 @@ const CartPage = () => {
                             </div>
                         )}
                     </div>
-                :   <Card className="max-w-940 grid grid-cols-1 gap-5 px-2 mt-5 mt-8">
+                :   <Card className="max-w-940 grid grid-cols-1 gap-5 px-2 mt-8">
                         {state.items && state.items?.length > 0 ? (
                             <>
                                 {state.items.map((item) => (
@@ -87,7 +89,7 @@ const CartPage = () => {
                                             <img
                                                 src={item.menu.image}
                                                 alt={item.menu.name}
-                                                className="h-200 sm:h-75 object-cover object-center rounded-md md:rounded-lg"
+                                                className={`h-200 sm:h-75 ${!isBeer.includes(item.menu.name) ? `object-cover object-center` : `object-contain`} rounded-md md:rounded-lg`} //TODO - Remove this object cover logic once get correct images
                                             />
                                         )}
                                         <div className="text-sm w-full">
@@ -121,17 +123,17 @@ const CartPage = () => {
                                     value={note}
                                     onChange={(event) => setNote(event.target.value)}
                                 />
-                                <div className="flex justify-center w-full mx-auto my-2 items-center md:items-end md:justify-end">
-                                    <Button className="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" radius="lg"
+                                <div className="flex justify-center w-full mx-auto my-2 flex-row items-center md:items-end md:justify-end">
+                                    <Button className="bg-black text-white py-2 px-4 rounded-lg min-w-eighty-percent md:min-w-20" radius="lg"
                                         onClick={handleCheckoutBtn}>
                                         Go To Checkout
                                     </Button>
                                 </div>
                             </>
                         ) : (
-                            <div className="text-gray-400 flex justify-center items-center h-80-vh flex-col">
+                            <div className="text-gray-400 flex justify-center items-center h-80-vh flex-col py-8">
                                 <div className="text-gray-400 text-sm mb-3">Cart Empty.</div>
-                                <Button className="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" radius="lg" onClick={handleEmptyCartBtn}>
+                                <Button className="bg-black text-white py-2 px-4 rounded-lg min-w-eighty-percent md:min-w-20" radius="lg" onClick={handleEmptyCartBtn}>
                                     Browse Menu
                                 </Button>
                             </div>

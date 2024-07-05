@@ -47,8 +47,7 @@ const orderResolver = {
             /* Order */
             // TODO ADD dynmic tableId
             const orderData = new Order({
-                // tableId: cart.tableId,
-                tableId: '666ce53ed5302320b6dad258',
+                tableId: cart.tableId,
                 note: cart.note,
                 cartId: cartId,
                 orderNumber: orderId,
@@ -131,6 +130,49 @@ const orderResolver = {
             }
 
             return order;
+        }
+    },
+    Query: {
+        getOrderById: async(_, {id}) => {
+            try {
+                const order = await Order.findById(id);
+                const items = await OrderItem.find({orderId: id});
+
+                return  {
+                    _id: order._id,
+                    tableId: order.tableId,
+                    note: order.note,
+                    orderNumber: order.orderNumber,
+                    items: [...items]
+                };
+
+            } catch(err) {
+                console.log('Error in fetching Order by id', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
+        getOrdersByIds: async(_, { ids }) => {
+            try {
+                const orders = await Order.find({ _id: { $in: ids } });
+                const items = await OrderItem.find({ orderId: { $in: ids } });
+
+                const ordersWithItems = orders.map(order => {
+                    const orderItems = items.filter(item => item.orderId.toString() === order._id.toString());
+                    console.log(orderItems);
+                    return  {
+                        _id: order._id,
+                        tableId: order.tableId,
+                        note: order.note,
+                        orderNumber: order.orderNumber,
+                        items: [...orderItems]
+                    };
+                });
+
+                return ordersWithItems;
+            } catch(err) {
+                console.log('Error in fetching Order by ids', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
         }
     },
     OrderItems: {

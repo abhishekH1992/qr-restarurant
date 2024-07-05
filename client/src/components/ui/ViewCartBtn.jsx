@@ -3,8 +3,6 @@ import { useCart } from "../../context/CartContext";
 import { Button } from "@nextui-org/react";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-// TODO add StickyBtn
-{/* <StickyBtn btnTxt={`View Cart (${state.items.length})`} classNames="bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20" hideFromLinks={hideFromLinks} redirectLink="/cart" /> */}
 const ViewCartBtn = () => {
     const { state } = useCart();
     const [isRelative, setIsRelative] = useState(false);
@@ -41,7 +39,7 @@ const ViewCartBtn = () => {
                 <div className="max-w-940 px-spacing-sm md:px-spacing-md lg:px-spacing-lg mx-auto">
                     <Button className={`${
                         isRelative ? 'relative my-3 mx-auto' : 'fixed bottom-5'
-                    }  left-1/2 transform -translate-x-1/2 bg-black text-white py-2 px-4 rounded-lg z-50 min-w-eighty-percent md:min-w-20`} radius="lg"
+                    }  left-1/2 transform -translate-x-1/2 bg-black text-white py-2 px-4 rounded-lg min-w-eighty-percent md:min-w-20`} radius="lg"
                         onClick={handleViewCartClick}>
                         View Cart ({state.items.length})
                     </Button>

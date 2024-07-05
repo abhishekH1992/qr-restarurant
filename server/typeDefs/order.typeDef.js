@@ -3,6 +3,10 @@ const orderTypeDef = `#graphql
         createPaymentIntent(amount: Float!): PaymentIntentResponse
         placeOrder(cartId: ID!): Order!
     }
+    type Query {
+        getOrderById(id: ID!): Order!
+        getOrdersByIds(ids: [ID!]!): [Order!]
+    }
     type PaymentIntentResponse {
         clientSecret: String
     }

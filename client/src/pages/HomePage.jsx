@@ -1,7 +1,7 @@
 import Banner from "../components/Banner";
 import Category from "../components/Category";
 
-const HomePage = () =>{
+const HomePage = () => {
     return (
         <>
             <div className="px-spacing-sm md:px-spacing-md lg:px-spacing-lg md:container mx-auto">

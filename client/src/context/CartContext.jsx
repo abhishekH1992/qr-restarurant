@@ -88,7 +88,11 @@ const CartProvider = ({children}) => {
     }, [data]);
 
     const createCart = async() => {
-        const tableId = Cookies.get('tableId');
+        const table = Cookies.get('tableId');
+        let tableId = null;
+        if(table) {
+            tableId = JSON.parse(Cookies.get('tableId'))._id;
+        }
         const { data } = await createCartMutation({
             variables: { input: { tableId } },
         });

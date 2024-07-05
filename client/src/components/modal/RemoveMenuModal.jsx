@@ -67,7 +67,7 @@ const RemoveMenuModal = ({cartItems, visible, closeModal, menu}) => {
                                             </div>
                                             <div className="price-text font-semibold flex lg:flex-col justify-between items-center sm:hidden lg:flex lg:w-fifteen-percent">
                                                 NZD {getItemFinalPrice(item)}
-                                                <TrashIcon className="size-6" onClick={() => deleteItem(item._id)}/>
+                                                <TrashIcon className="size-6 cursor-pointer" onClick={() => deleteItem(item._id)}/>
                                             </div>
                                         </div>
                                     ))}

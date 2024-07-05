@@ -9,6 +9,15 @@ export const CREATE_CART = gql`
     }
 `;
 
+export const UPDATE_CART_TABLE_ID = gql`
+    mutation UpdateTableId($input: CartUpdateInput) {
+        updateTableId(input: $input) {
+            _id
+            tableId
+        }
+    }
+`;
+
 export const ADD_TO_CART = gql`
     mutation AddToCart($input: CartItemInput!) {
         cartItem(input: $input) {

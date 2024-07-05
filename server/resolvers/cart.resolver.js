@@ -19,6 +19,17 @@ const cartResolver = {
                 throw new Error(err.message || 'Internal Server error');
             }
         },
+        updateTableId: async(_, {input}) => {
+            try {
+                const cart = await Cart.findByIdAndUpdate(input._id, input, {
+                    new: true
+                });
+                return cart;
+            } catch(err) {
+                console.log('Error in updating cart', err);
+                throw new Error(err.message || 'Internal Server error');
+            }
+        },
         updateCart: async(_, {input}) => {
             try {
                 const cart = await CartItem.findByIdAndUpdate(input._id, input, {
@@ -125,7 +136,7 @@ const cartResolver = {
                 console.log('Error in fetching cart menu addons', err);
                 throw new Error(err.message || 'Internal Server error');
             }
-        }
+        },
     }
 }
 

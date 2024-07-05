@@ -19,3 +19,12 @@ export const GET_PAYMENT_API = gql`
         }
     }
 `;
+
+export const GET_TABLE_LIST = gql`
+    query table {
+        table {
+            _id
+            name
+        }
+    }
+`;
